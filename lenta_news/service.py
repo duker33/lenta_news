@@ -1,6 +1,8 @@
 import urllib.request
 from xml.etree import ElementTree
 
+from .models import News
+
 
 def get_rss() -> str:
     with urllib.request.urlopen('https://lenta.ru/rss/articles') as response:
@@ -8,9 +10,11 @@ def get_rss() -> str:
     return rss.decode()
 
 
-# TODO - use type hints
-def build_pdf():
+def save_news_to_db():
     root = ElementTree.fromstring(get_rss())
-    doc_title = root[0].find('title').text
     for article in root[0].findall('item'):
-        print(article.find('description').text)
+        News.objects.create(
+            title=article.find('title').text,
+            description=article.find('description').text,
+            date_published=article.find('pubDate').text
+        )

@@ -1,13 +1,16 @@
 - 1p/0p - Create Django proj
 - 2p/2p - Get mail and date from front
-- 2p - Get rss news
+- 2p/1p - Get rss news
 
-- 2p - Save news into DB
-- 1b - Get news category from front
-- 2b2p - Use celery
+- 2p/1p - Save news into DB
+- 1b - Generate pdf
+- 2b2p/3p - Use celery
 - +2p - Send mail
 - +1p - Add proj styles
 - 1b - Deploy project
+
+TODO:
+- leave requirements.txt
 
 Total: 6b1p
 Buffer: 10p-3p

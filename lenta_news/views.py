@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from .forms import OrderNewsForm
-from .service import build_pdf
 
 
 def get_news_order(request):
@@ -13,7 +12,6 @@ def get_news_order(request):
             date_to = form.cleaned_data['date_to']
             date_from = form.cleaned_data['date_from']
             print(email, date_to, date_from)
-            build_pdf()
             # TODO - redirect page
             return HttpResponseRedirect('/thanks/')
     else:
