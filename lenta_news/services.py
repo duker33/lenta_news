@@ -1,3 +1,4 @@
+from datetime import datetime
 import urllib.request
 from xml.etree import ElementTree
 
@@ -13,8 +14,10 @@ def get_rss() -> str:
 def save_news_to_db():
     root = ElementTree.fromstring(get_rss())
     for article in root[0].findall('item'):
-        News.objects.create(
+        News.objects.get_or_create(
             title=article.find('title').text,
             description=article.find('description').text,
-            date_published=article.find('pubDate').text
+            date_published=datetime.strptime(
+                article.find('pubDate').text, '%a, %d %b %Y %H:%M:%S %z'
+            )
         )
