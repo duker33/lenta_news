@@ -1,9 +1,9 @@
 - 1p/0p - Create Django proj
 - 2p/2p - Get mail and date from front
 - 2p/1p - Get rss news
+- 2p/2p - Save news into DB
 
-- 2p/1p - Save news into DB
-- 1b - Generate pdf
+- 1b - Generate pdf. xhtml2pdf
 - 2b2p/3p - Use celery
 - +2p - Send mail
 - +1p - Add proj styles
