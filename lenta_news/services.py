@@ -2,13 +2,9 @@ from datetime import datetime
 import urllib.request
 from xml.etree import ElementTree
 import xhtml2pdf.pisa as pisa
-import xhtml2pdf.pdf as pdf
 from io import StringIO, BytesIO
 
-from django import http
-from django.shortcuts import render_to_response
 from django.template.loader import get_template
-from django.template import Context
 
 from .models import News
 
@@ -39,15 +35,12 @@ def render_to_pdf():
     html = template.render({'news_list': News.objects.all()})
     result = BytesIO()
 
-    pdf = pisa.CreatePDF(StringIO(html), result, encoding='utf-8')
+    pdf = pisa.CreatePDF(StringIO(html), result)
 
     # TODO - process pdf errors
     if pdf.err:
         raise Exception('Jesus! Pdf error!')
     file_content = result.getvalue()
-    with open('./news.pdf', mode='wb') as file:
-        file.write(file_content)
-    return 'bugag' # result.getvalue()
-
-
-# from lenta_news.services import render_to_pdf
+    # with open('./news.pdf', mode='wb') as file:
+    #     file.write(file_content)
+    return file_content
