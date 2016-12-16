@@ -1,8 +1,19 @@
 from datetime import datetime
 import urllib.request
 from xml.etree import ElementTree
+import xhtml2pdf.pisa as pisa
+import xhtml2pdf.pdf as pdf
+from io import StringIO, BytesIO
+
+from django import http
+from django.shortcuts import render_to_response
+from django.template.loader import get_template
+from django.template import Context
 
 from .models import News
+
+
+PDF_TEMPLATE = 'pdf_news.html'
 
 
 def get_rss() -> str:
@@ -21,3 +32,22 @@ def save_news_to_db():
                 article.find('pubDate').text, '%a, %d %b %Y %H:%M:%S %z'
             )
         )
+
+
+def render_to_pdf():
+    template = get_template(PDF_TEMPLATE)
+    html = template.render({'news_list': News.objects.all()})
+    result = BytesIO()
+
+    pdf = pisa.CreatePDF(StringIO(html), result, encoding='utf-8')
+
+    # TODO - process pdf errors
+    if pdf.err:
+        raise Exception('Jesus! Pdf error!')
+    file_content = result.getvalue()
+    with open('./news.pdf', mode='wb') as file:
+        file.write(file_content)
+    return 'bugag' # result.getvalue()
+
+
+# from lenta_news.services import render_to_pdf
