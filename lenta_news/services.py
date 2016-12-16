@@ -11,9 +11,6 @@ from django.template.loader import get_template
 from .models import News
 
 
-PDF_TEMPLATE = 'pdf_news.html'
-
-
 def get_rss() -> str:
     with urllib.request.urlopen('https://lenta.ru/rss/articles') as response:
         rss = response.read()
@@ -35,7 +32,7 @@ def save_news_to_db():
 # TODO - use type hints
 def render_news_to_pdf():
     """Get news from db and render it to pdf content"""
-    template = get_template(PDF_TEMPLATE)
+    template = get_template('pdf_news.html')
     html = template.render({'news_list': News.objects.all()})
     result = BytesIO()
 
@@ -45,22 +42,18 @@ def render_news_to_pdf():
     if pdf.err:
         raise Exception('Jesus! Pdf error!')
     file_content = result.getvalue()
-    # with open('./news.pdf', mode='wb') as file:
-    #     file.write(file_content)
     return file_content
 
 
-def send_news_email():
-    # TODO - get "email_to" from views
-    email_to = 'duker33@gmail.com'
-    content = render_news_to_pdf()
+def send_news_email(email_to, news_date_from, news_date_to):
+    news_content = render_news_to_pdf()
     message = EmailMessage(
         subject='Дайджест новостей',
-        # TODO - insert dates
-        body='Дайджест новостей с lenta.ru за date1, date2',
+        body='Дайджест новостей с lenta.ru за {}, {}'.format(
+            news_date_from, news_date_to
+        ),
         from_email=settings.EMAIL_SENDER,
         to=[email_to]
     )
-    # TODO - take yandex's smtp
-    message.attach('lenta_news.pdf', content, 'application/pdf')
+    message.attach('lenta_news.pdf', news_content, 'application/pdf')
     message.send()
