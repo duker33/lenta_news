@@ -126,3 +126,12 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# TODO - move to env
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'so_secret_pass')
+EMAIL_HOST_PASSWORD = 'en35vasadar'
+EMAIL_HOST_USER = 'duker21@yandex.ru'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_SENDER = 'duker21@yandex.ru'

@@ -4,8 +4,8 @@
 - 2p/2p - Save news into DB
 
 - 1b/1b - Generate pdf. xhtml2pdf
+- +2p/1p - Send mail
 - 2b2p/3p - Use celery
-- +2p - Send mail
 - +1p - Add proj styles
 - 1b - Deploy project
 

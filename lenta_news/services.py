@@ -4,6 +4,8 @@ from xml.etree import ElementTree
 import xhtml2pdf.pisa as pisa
 from io import StringIO, BytesIO
 
+from django.conf import settings
+from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
 from .models import News
@@ -30,7 +32,9 @@ def save_news_to_db():
         )
 
 
-def render_to_pdf():
+# TODO - use type hints
+def render_news_to_pdf():
+    """Get news from db and render it to pdf content"""
     template = get_template(PDF_TEMPLATE)
     html = template.render({'news_list': News.objects.all()})
     result = BytesIO()
@@ -44,3 +48,19 @@ def render_to_pdf():
     # with open('./news.pdf', mode='wb') as file:
     #     file.write(file_content)
     return file_content
+
+
+def send_news_email():
+    # TODO - get "email_to" from views
+    email_to = 'duker33@gmail.com'
+    content = render_news_to_pdf()
+    message = EmailMessage(
+        subject='Дайджест новостей',
+        # TODO - insert dates
+        body='Дайджест новостей с lenta.ru за date1, date2',
+        from_email=settings.EMAIL_SENDER,
+        to=[email_to]
+    )
+    # TODO - take yandex's smtp
+    message.attach('lenta_news.pdf', content, 'application/pdf')
+    message.send()
