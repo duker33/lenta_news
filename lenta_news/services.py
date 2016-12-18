@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
-from .models import News
+from lenta_news.models import News
 
 
 def get_rss() -> str:
