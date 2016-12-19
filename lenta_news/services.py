@@ -1,4 +1,5 @@
 from datetime import datetime
+from celery import shared_task
 import urllib.request
 from xml.etree import ElementTree
 import xhtml2pdf.pisa as pisa
@@ -17,6 +18,7 @@ def get_rss() -> str:
     return rss.decode()
 
 
+@shared_task
 def save_news_to_db():
     root = ElementTree.fromstring(get_rss())
     for article in root[0].findall('item'):
@@ -45,6 +47,7 @@ def render_news_to_pdf():
     return file_content
 
 
+@shared_task
 def send_news_email(email_to, news_date_from, news_date_to):
     news_content = render_news_to_pdf()
     message = EmailMessage(
