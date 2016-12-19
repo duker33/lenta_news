@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from lenta_news.forms import OrderNewsForm
-from lenta_news.services import send_news_email
+from lenta_news.services.mail_pdf import send_news_email
 
 
 # TODO - throw CBV
