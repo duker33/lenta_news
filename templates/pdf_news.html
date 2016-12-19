@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{# Original template here: https://goo.gl/EOjzsn #}
+<html>
+  <head>
+  <title>{%block title%}{{ title }}{%endblock%}</title>
+  <style type="text/css">
+    @page {
+      size: 1024cm;
+      margin: 1cm;
+      @frame footer {
+          -pdf-frame-content: footerContent;
+          bottom: 1cm;
+          margin-left: 1cm;
+          margin-right: 1cm;
+          height: 1cm;
+      }
+    }
+  </style>
+</head>
+
+  <body>
+    <div>
+       <div>
+          <h1>pisa html<span style="color: #FC0000;">to</span>pdf</h1>
+          <h2>Python module for HTML/CSS to PDF conversion - Ezpdf example</h2>
+       </div>
+      <hr />
+
+      {% for news in news_list %}
+        <div>
+          <span>{{ news.date_published }}</span>
+          <h3>{{ news.title }}</h3>
+          <p style="margin-left:15px">{{ news.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="footerContent">
+      {%block page_foot%}
+          <pdf:pagenumber>
+      {%endblock%}
+    </div>
+  </body>
+</html>

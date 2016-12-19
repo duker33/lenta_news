@@ -1,0 +1,22 @@
+- 1p/0p - Create Django proj
+- 2p/2p - Get mail and date from front
+- 2p/1p - Get rss news
+- 2p/2p - Save news into DB
+
+- 1b/1b - Generate pdf. xhtml2pdf
+- +2p/2p - Send mail
+- 2b2p/1b3p - Use celery
+- +1p - Add proj styles
+- 1b - Deploy project
+
+TODO:
+- leave requirements.txt
+- encoding problem
+- 1p - clear code, self review
+
+Deploy:
+- setup rabbitmq: http://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html
+
+
+Total: 6b1p
+Buffer: 10p-3p
