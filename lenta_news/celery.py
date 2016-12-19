@@ -24,3 +24,9 @@ app.autodiscover_tasks()
 @app.task(bind=True)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
+
+
+@app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    from lenta_news.services import save_news_to_db
+    sender.add_periodic_task(3.0, save_news_to_db, name='save news every 30s')
