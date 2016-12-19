@@ -9,8 +9,7 @@ from django.template.loader import get_template
 from lenta_news.models import News
 
 
-# TODO - use type hints
-def render_news_to_pdf():
+def render_news_to_pdf() -> bytes:
     """Get news from db and render it to pdf content"""
     template = get_template('pdf_news.html')
     html = template.render({'news_list': News.objects.all()})
@@ -18,9 +17,8 @@ def render_news_to_pdf():
 
     pdf = pisa.CreatePDF(StringIO(html), result)
 
-    # TODO - process pdf errors
     if pdf.err:
-        raise Exception('Jesus! Pdf error!')
+        raise IOError('pdf file creation failed!')
     file_content = result.getvalue()
     return file_content
 

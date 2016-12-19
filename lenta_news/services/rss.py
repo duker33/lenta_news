@@ -3,12 +3,13 @@ from celery import shared_task
 import urllib.request
 from xml.etree import ElementTree
 
+from django.conf import settings
+
 from lenta_news.models import News
 
 
 def get_rss() -> str:
-    # TODO - move it to settings
-    with urllib.request.urlopen('https://lenta.ru/rss/articles') as response:
+    with urllib.request.urlopen(settings.RSS_URL) as response:
         rss = response.read()
     return rss.decode()
 

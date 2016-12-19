@@ -136,3 +136,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_SENDER = 'duker21@yandex.ru'
+
+RSS_URL = 'https://lenta.ru/rss/articles'
