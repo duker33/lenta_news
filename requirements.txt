@@ -3,3 +3,4 @@ pillow
 six
 webencodings
 celery
+django_celery_beat

@@ -18,6 +18,7 @@ def get_rss() -> str:
     return rss.decode()
 
 
+@shared_task
 def save_news_to_db():
     root = ElementTree.fromstring(get_rss())
     for article in root[0].findall('item'):
