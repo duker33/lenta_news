@@ -15,7 +15,7 @@ def get_rss() -> str:
 
 
 @shared_task
-def save_news_to_db():
+def fetch_news():
     """
     This function is called as scheduled celery task.
     Schedule for this task should be setup from django admin ui:
