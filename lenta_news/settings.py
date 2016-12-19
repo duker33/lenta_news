@@ -137,4 +137,6 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_SENDER = 'duker21@yandex.ru'
 
+PDF_FILE_NAME = 'lenta_news.pdf'
+
 RSS_URL = 'https://lenta.ru/rss/articles'

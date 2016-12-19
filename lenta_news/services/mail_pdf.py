@@ -25,7 +25,7 @@ def render_news_to_pdf() -> bytes:
 
 @shared_task
 def send_news_email(email_to, news_date_from, news_date_to):
-    """Send email with pinned news pdf"""
+    """Send email with attached news pdf"""
     news_content = render_news_to_pdf()
     message = EmailMessage(
         subject='Дайджест новостей',
@@ -35,5 +35,5 @@ def send_news_email(email_to, news_date_from, news_date_to):
         from_email=settings.EMAIL_SENDER,
         to=[email_to]
     )
-    message.attach('lenta_news.pdf', news_content, 'application/pdf')
+    message.attach(settings.PDF_FILE_NAME, news_content, 'application/pdf')
     message.send()
